@@ -1,0 +1,12 @@
+只用一个数据成员char *str来维护和操作一个名叫：myString的类，复制拷贝都是深拷贝，不用引用计数。
+
+1.operator>> operator<<
+read的时候不能超过127长度，但仅限于read。read时，忽略前导空格，再遇到空格停止read
+
+2.read(stream, length),不跳过任何字符
+
+3.operator[]，operator[]const，越界检查
+
+4.关系运算符 <, <=,>,>=,==,!=，rhs=myString或者c-string
+
+5.字符串连接+，+=，rhs=myString或者c-string

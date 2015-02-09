@@ -1,0 +1,37 @@
+Write a string class. To avoid conflicts with other similarly named classes, we will call our version myString. This object is designed to make working with sequences of characters a little more convenient and less error-prone than handling raw c-strings, (although it will be implemented as a c-string behind the scenes). The myString class will handle constructing strings, reading/printing, accessing characters, and some simple operators such as concatenation. In addition, the myString object will have the ability to make a full deep-copy of itself when copied.
+
+Your class must have only one data member, a c-string implemented as a dynamic array. In particular, you must not use a data member to keep track of the size or length of the myString.
+
+You should write the class in two phases. I've set it up this way because there are a couple of functions that are very difficult and I want to provide a way for you to skip those two functions and move on if you need to. If you submit the assignment with only phase 1 completed you can still earn almost all of the points.
+
+Phase 1 [90 points]: Write everything except the extraction operator (>>) and the read function. To do this, you'll want to comment out that part of the client program that tests these.
+Phase 2 [5 points]: The extraction operator and read() function.
+Here is a list of the operations this class must support:
+
+A length member function which returns the number of characters in the string.
+
+Construction of a myString from a const c-string. You should copy the string data, not just store a pointer to an argument passed to the constructor. Constructing a myString with no arguments creates an empty myString object (i.e. ""). A myString object should be implemented efficiently (space-wise) which is to say you should not have a fixed-size buffer of chars, but instead allocate space for chars on an as-needed basis.
+
+Printing a myString to a stream using an overloaded << (insertion) operator, which should simply print out its characters.
+
+Reading into a myString from a stream using an overloaded >> (extraction) operator. The standard >> operator should skip any leading spaces and then read characters into the string to the first whitespace character.
+
+For reasons of convenience, we will impose a limit of 127 on the number of characters this function will read. This is so you can temporarily read into a non-dynamic array and then copy what you need into your data member, which will be a dynamic array. Note that this does not mean that all myStrings will always have a maximum of 127 characters. For example, you might get a myString with more than 127 characters by using the myString constructor or by concatenating two myStrings.
+
+Hint: use the extraction operator to do the reading of the input into a non-dynamic array, then use strcpy() to copy it into your data member.
+
+A read() function. The read() function will allow the client programmer to specify the delimiting character (the one to stop at instead of the first space). This will be a void function that will take two arguments, a stream and the delimiting character. It should not skip leading spaces. The limit of 127 characters imposed on the >> function above also applies to this function.
+
+Hint: use the in.getline() function to do the reading of the input into a non-dynamic array, then use strcpy() to copy it into your data member.
+
+Your myString object should overload the square brackets [ ] operator to allow direct access to the individual characters of the string. This operation should range-check and assert if the index is out of bounds. You will write two versions of the [ ] operator, a const version that allows read access to the chars, and a non-const version that returns the client a reference to the char so they can change the value.
+
+All six of the relational operators (<, <=, >, >=, ==, !=) should be supported. They should be able to compare myString objects to other myStrings as well as myStrings to c-strings using lexicographic ordering (i.e. strcmp). myStrings or c-strings should be able to appear on either side of the comparison operator.
+
+The myString object should have correct "deep-copying" semantics, which is to say that when a copy of a string object is made (via the copy constructor or the operator=) the new copy should create its own copy of the string data, rather than use an alias to the character data in the original object.
+
+myString overloads binary + to do string concatenation and the shorthand += to combine concatenation and assignment. Either myString objects or c-strings can appear on either side of the binary + or the right hand side of the +=. Only myStrings can be on the left-hand side of a += operation.
+
+You may use all of the c-string functionality provided by C++. This will include the strlen(), strcmp(), strcpy(), strcat(), and in.getline() functions, along with the overloaded extraction and insertion operator for c-strings. These functions are all covered in detail in section 9.1 of the text. When you use strcat() and strcpy(), treat them as void functions despite the fact that they have a return value. Do not use strncpy(), strncat(), or strncmp() since they are not implemented in all versions of C++. You may NOT use anything from the C++ string class!!
+
+You must place your header file and implementation file in a namespace. Normally one would call a namespace something more likely to be unique, but for purposes of convenience we will all call our namespace "cs2b_mystring".
